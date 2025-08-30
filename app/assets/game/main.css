@@ -1,0 +1,133 @@
+@import './base.css';
+
+:root {
+  --width: 1080px;
+  --height: 680px;
+  --menuwidth: 250px;
+}
+
+#app {
+  max-width: var(--width);
+  margin: 0 auto;
+  font-weight: normal;
+  color: darkgray;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(63, 100%, 37%, 0.2);
+  }
+
+  i:hover,
+  button:hover {
+    cursor: pointer;
+  }
+}
+
+@media (min-width: var(--width)) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+
+  #app {
+    display: flex;
+    padding: 0 0rem;
+  }
+}
+
+.main-menu {
+  width: var(--menuwidth);
+  margin: 1em;
+  padding: 0px;
+}
+
+.main-header {
+  width: var(--width);
+  height: 75px;
+  color: white;
+  padding: 0px;
+  border-radius: 5px;
+}
+
+.main-footer {
+  font-size: 1.2em;
+  width: var(--width);
+  height: 30px;
+  margin: 0px;
+  padding: 0px;
+  color: white;
+  border-radius: 5px;
+}
+
+.main-button {
+  font-size: 1.5em;
+  width: 100px;
+  height: 100%;
+  display: inline-block;
+}
+
+.tool-button {
+  min-width: 100px;
+  max-width: 200px;
+  height: 36px;
+  margin-right: 1em;
+}
+
+.main-panel {
+  width: var(--width);
+  height: calc(var(--height) - 105px);
+  margin: 0px;
+  padding: 0px;
+  background-color: #081020;
+  border-radius: 5px;
+}
+
+.p-inputtext {
+  width: 160px;
+  padding: 5px;
+  margin: 2px 0px 0px 2px;
+}
+
+.p-calendar {
+  width: 110px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.field {
+  min-height: 35px;
+  max-height: 35px;
+  padding: 5px 10px;
+}
+
+.p-panelmenu-header-action {
+  max-height: 36px;
+}
+
+.p-menuitem {
+  background-color: #081020;
+  max-height: 36px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.p-toolbar {
+  padding: 10px;
+}
+
+.sidebar {
+  width: var(--menuwidth);
+  height: var(--height);
+  position: fixed;
+  top: 5px;
+  left: 5px;
+  z-index: 9999;
+}
