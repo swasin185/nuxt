@@ -10,6 +10,10 @@
 </template>
 
 <script lang="ts" setup>
+useHead({
+    title: 'Invoice'
+})
+
 import type { TableColumn, TableRow } from '@nuxt/ui'
 import { ref, onMounted } from 'vue'
 import { Invoice, InvItem, calculateInv } from '~/shared/Invoice'

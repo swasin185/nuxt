@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 useHead({
-  title: 'Sorting'
+    title: 'Sorting'
 })
 
 import BubbleSort from './sort/BubbleSort'

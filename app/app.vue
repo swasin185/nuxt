@@ -58,13 +58,18 @@ const items = ref<NavigationMenuItem[]>([
     ],
   },
   {
-    label: 'Work',
+    label: 'Math',
     icon: 'i-lucide-home',
     children: [
       {
         label: 'Invoice',
         icon: 'i-lucide-home',
-        to: '/work/TaxInvoice',
+        to: '/math/TaxInvoice',
+      },
+      {
+        label: 'Trigonometry',
+        icon: 'i-lucide-home',
+        to: '/math/Trigonometry',
       },
     ],
   },
