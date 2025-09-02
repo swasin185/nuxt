@@ -2,16 +2,28 @@ import Prime from '../math/Prime'
 export default eventHandler(async (req) => {
     const query = getQuery(req)
     if (!query.x) {
-        setResponseHeader(req, 'Content-Type', 'text/plain')
-        return "Missing query parameter 'x'"
+        throw createError({
+            statusCode: 400,
+            statusMessage: 'Missing parameter x',
+        })
     }
     let x = query.x as string
     Prime.createPrimeArray(x)
     const n = query.x as number
     if (n % 2 != 0 && n > 2) {
-        setResponseHeader(req, 'Content-Type', 'text/plain')
-        return 'Event number greater than 2 is required !'
+        throw createError({
+            statusCode: 400,
+            statusMessage: 'Event number greater than 2 is required !',
+        })
     }
+
+    if (Prime.getLastPrime().toNumber() < n) {
+        throw createError({
+            statusCode: 400,
+            statusMessage: 'Number input should less than ' + Prime.getLastPrime().toNumber(),
+        })
+    }
+
     let gb: string[] = []
     gb = Prime.conjGoldbach(String(n))
     const dash = '─'
