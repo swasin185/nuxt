@@ -1,21 +1,31 @@
 <template>
-    <canvas id="cpxCanvas" width="800" height="700"
-        style="border: 1px solid #ffffff; background-image: url('/game/pascal.jpg')"></canvas>
+    <div>
+        <canvas
+            id="cpxCanvas"
+            width="800"
+            height="700"
+            style="
+                position: relative;
+                border: 1px solid #ffffff;
+                background-image: url('/game/pascal.jpg');
+            "
+        ></canvas>
+    </div>
 </template>
 
 <script lang="ts" setup>
 useHead({
-    title: 'Pascal'
+    title: "Pascal",
 })
-import { ref, onMounted } from 'vue'
-const options = ref(['Pause'])
-const value = ref('')
+import { ref, onMounted } from "vue"
+const options = ref(["Pause"])
+const value = ref("")
 var cv: HTMLCanvasElement
 var cx: CanvasRenderingContext2D
 var WIDTH: number
 var HEIGHT: number
 var MID_WIDTH: number
-const COLORS = ['magenta', 'cyan', 'red', 'lime', 'yellow', 'orange', 'blue']
+const COLORS = ["magenta", "cyan", "red", "lime", "yellow", "orange", "blue"]
 const PI2 = Math.PI * 2
 const PI_2 = Math.PI / 2
 const GRAVITY = 0.1
@@ -39,20 +49,21 @@ for (let i = 1; i < n; i++) {
 }
 a = 0
 for (let i = 0; i < n; i++) {
-    let s: string = ''
-    for (let j = 0; j <= n - i - 1; j++) s += '\t' + pArr[(j * j + j) / 2 + (i * i + i) / 2 + (i + 1) * j]
+    let s: string = ""
+    for (let j = 0; j <= n - i - 1; j++)
+        s += "\t" + pArr[(j * j + j) / 2 + (i * i + i) / 2 + (i + 1) * j]
 }
 a = 0
 for (let i = 0; i < n; i++) {
-    let s: string = Math.pow(2, i) + '\t' + i
-    for (let j = 0; j <= i; j++) s += '\t' + round((pArr[a++]! / Math.pow(2, i)) * 100)
+    let s: string = Math.pow(2, i) + "\t" + i
+    for (let j = 0; j <= i; j++) s += "\t" + round((pArr[a++]! / Math.pow(2, i)) * 100)
 }
 
 class Sprite {
     protected x: number = 0 // horizontal position
     protected y: number = 0 // vertical position
     protected radius: number = 5 // pixel
-    protected color: string = 'yellow' // color name
+    protected color: string = "yellow" // color name
     constructor(x: number, y: number, color: string, r: number) {
         this.setXY(x, y)
         this.setRadius(r)
@@ -234,7 +245,7 @@ class Box extends Sprite {
     private count: number = 0
     pascal: number = 0
     constructor(x: number, y: number) {
-        super(x, y, 'black', 5)
+        super(x, y, "black", 5)
         //    this.size = this.radius * 2;
     }
     public getId(): number {
@@ -247,7 +258,7 @@ class Box extends Sprite {
         // cx.strokeRect(this.x - this.radius, this.y, this.size, this.size);
 
         //cx.strokeText(String(this.pascal), this.x - (Math.log10(this.pascal) + 1) * 3, this.y - 20);
-        cx.strokeStyle = 'lime'
+        cx.strokeStyle = "lime"
         cx.strokeText(String(this.count), this.x - (Math.log10(this.count) + 1) * 3, this.y)
         // cx.strokeStyle = 'yellow';
         // cx.strokeText(String(this.id), this.x - 10, this.y + this.radius * 3);
@@ -287,7 +298,11 @@ async function calculate() {
 
         for (let i = 0; i < balls.length - 1; i++) {
             for (let j = i + 1; j < balls.length; j++) {
-                if (!balls[i]!.isRemoved() && !balls[j]!.isRemoved() && balls[i]!.isCollided(balls[j]!)) {
+                if (
+                    !balls[i]!.isRemoved() &&
+                    !balls[j]!.isRemoved() &&
+                    balls[i]!.isCollided(balls[j]!)
+                ) {
                     balls[i]!.reflect(balls[i]!.getCollideAngle(balls[j]!))
                     balls[j]!.reflect(balls[j]!.getCollideAngle(balls[i]!))
                 }
@@ -304,7 +319,7 @@ async function calculate() {
         }
         paint()
         await new Promise((r) => setTimeout(r, 10))
-        while (value.value == 'Pause') {
+        while (value.value == "Pause") {
             await new Promise((r) => setTimeout(r, 1000))
         }
     }
@@ -348,8 +363,8 @@ function round(x: number): number {
 }
 
 onMounted(() => {
-    cv = document.getElementById('cpxCanvas') as HTMLCanvasElement
-    cx = cv.getContext('2d') as CanvasRenderingContext2D
+    cv = document.getElementById("cpxCanvas") as HTMLCanvasElement
+    cx = cv.getContext("2d") as CanvasRenderingContext2D
     WIDTH = cv.width
     HEIGHT = cv.height
     MID_WIDTH = cv.width / 2

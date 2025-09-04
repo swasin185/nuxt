@@ -3,46 +3,84 @@
         <tbody>
             <tr>
                 <td width="400" style="vertical-align: top; padding: 20px">
-                    <h3><label id="runTime" style="align-content: center;"></label></h3>
-                    <input type="button" class="button" style="width: 50px; height: 25px; margin: 20px" value="+"
-                        @click="zoomIn" />
-                    <input type="button" class="button" style="width: 100px; height: 25px; margin: 20px" value="Reset"
-                        @click="reset" />
-                    <input type="button" class="button" style="width: 50px; height: 25px; margin: 20px" value="-"
-                        @click="zoomOut" />
+                    <h3><label id="runTime" style="align-content: center"></label></h3>
+                    <input
+                        type="button"
+                        class="button"
+                        style="width: 50px; height: 25px; margin: 20px"
+                        value="+"
+                        @click="zoomIn"
+                    />
+                    <input
+                        type="button"
+                        class="button"
+                        style="width: 100px; height: 25px; margin: 20px"
+                        value="Reset"
+                        @click="reset"
+                    />
+                    <input
+                        type="button"
+                        class="button"
+                        style="width: 50px; height: 25px; margin: 20px"
+                        value="-"
+                        @click="zoomOut"
+                    />
                     <h2>Mandelbrot Set</h2>
                     <table>
                         <tbody>
                             <tr>
                                 <td>Real :</td>
                                 <td>
-                                    <input id="realValue" type="text" value="-0.75"
-                                        style="width: 200px; text-align: right" />
+                                    <input
+                                        id="realValue"
+                                        type="text"
+                                        value="-0.75"
+                                        style="width: 200px; text-align: right"
+                                    />
                                 </td>
                             </tr>
                             <tr>
                                 <td>Imaginary :</td>
                                 <td>
-                                    <input id="imageValue" type="text" value="0"
-                                        style="width: 200px; text-align: right" />
+                                    <input
+                                        id="imageValue"
+                                        type="text"
+                                        value="0"
+                                        style="width: 200px; text-align: right"
+                                    />
                                 </td>
                             </tr>
                             <tr>
                                 <td>ขนาด :</td>
                                 <td>
-                                    <input id="boundary" type="text" value="3"
-                                        style="width: 200px; text-align: right" />
+                                    <input
+                                        id="boundary"
+                                        type="text"
+                                        value="3"
+                                        style="width: 200px; text-align: right"
+                                    />
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                     <hr />
                     <h2>Julia Set</h2>
-                    <canvas id="cpxJuliaSet" width="320" height="320" style="border: 1px solid #fff"></canvas>
+                    <canvas
+                        id="cpxJuliaSet"
+                        width="320"
+                        height="320"
+                        style="border: 1px solid #fff"
+                    ></canvas>
                 </td>
                 <td>
-                    <canvas id="cpxCanvas" width="680" height="680" style="border: 1px solid #fff" @mousemove="moveXY"
-                        @click="clickXY"></canvas>
+                    <canvas
+                        id="cpxCanvas"
+                        width="680"
+                        height="680"
+                        style="border: 1px solid #fff"
+                        @mousemove="moveXY"
+                        @click="clickXY"
+                    ></canvas>
                 </td>
             </tr>
         </tbody>
@@ -51,7 +89,7 @@
 
 <script lang="ts" setup>
 useHead({
-    title: 'Mandelbrot & Julia'
+    title: "Mandelbrot & Julia",
 })
 import { onMounted } from "vue"
 
@@ -185,8 +223,8 @@ function mandel(re: number, im: number): { x: number; y: number }[] {
     let arr: { x: number; y: number }[] = [
         {
             x: ((re - center_real) * WIDTH) / boundary + MID_WIDTH,
-            y: ((-im - center_image) * HEIGHT) / boundary + MID_HEIGHT
-        }
+            y: ((-im - center_image) * HEIGHT) / boundary + MID_HEIGHT,
+        },
     ]
     let n: number = 0
     let re0: number = 0
@@ -202,7 +240,7 @@ function mandel(re: number, im: number): { x: number; y: number }[] {
         Zn.add(C)
         arr.push({
             x: ((Zn.getReal() - center_real) * WIDTH) / boundary + MID_WIDTH,
-            y: ((-Zn.getImage() - center_image) * HEIGHT) / boundary + MID_HEIGHT
+            y: ((-Zn.getImage() - center_image) * HEIGHT) / boundary + MID_HEIGHT,
         })
         n++
     }
@@ -299,8 +337,7 @@ function paint(re: number, im: number) {
     if (points.length > 0) {
         ctx.beginPath()
         ctx.moveTo(points[0]!.x, points[0]!.y)
-        for (let i = 1; i < points.length; i++)
-            ctx.lineTo(points[i]!.x, points[i]!.y)
+        for (let i = 1; i < points.length; i++) ctx.lineTo(points[i]!.x, points[i]!.y)
         ctx.stroke()
         ctx.closePath()
     }

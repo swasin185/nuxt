@@ -19,7 +19,7 @@ export default abstract class Sort {
             }
         }
         this.canvas = document.getElementById(canvasId) as HTMLCanvasElement
-        this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D
+        this.ctx = this.canvas.getContext("2d") as CanvasRenderingContext2D
         this.buttom = this.canvas.height - 15
         this.repaint()
     }
@@ -28,9 +28,13 @@ export default abstract class Sort {
 
     protected repaint(): void {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-        for (let i = 0; i < this.arr.length; i++) 
+        for (let i = 0; i < this.arr.length; i++)
             this.ctx.fillRect(20 + i * 3, this.buttom, 2, -this.arr[i]!)
-        this.ctx.fillText(this.canvasId + ' compare=' + this.compare + ' swap=' + this.swap, 5, this.canvas.height - 3)
+        this.ctx.fillText(
+            this.canvasId + " compare=" + this.compare + " swap=" + this.swap,
+            5,
+            this.canvas.height - 3
+        )
     }
 
     protected async swapData(i: number, j: number) {

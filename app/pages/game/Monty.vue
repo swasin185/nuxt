@@ -7,7 +7,11 @@
                 <h3>{{ card.name }}</h3>
                 <img src="/assets/game/question.svg" v-show="!card.isOpened" />
                 <img src="/assets/game/coin.png" v-show="card.isOpened && card.id == coinCard" />
-                <img src="/assets/game/bomb.svg" v-show="card.isOpened && card.id != coinCard" class="blinking" />
+                <img
+                    src="/assets/game/bomb.svg"
+                    v-show="card.isOpened && card.id != coinCard"
+                    class="blinking"
+                />
             </button>
         </div>
         <h4>
@@ -20,11 +24,11 @@
 
 <script lang="ts" setup>
 useHead({
-    title: 'Monty Hall'
+    title: "Monty Hall",
 })
-import { ref } from 'vue'
+import { ref } from "vue"
 
-const message = ref('เกมส์เปิดการ์ดหาเหรียญ')
+const message = ref("เกมส์เปิดการ์ดหาเหรียญ")
 const coins = ref(10)
 const counter = ref(0)
 const winrate = ref(0)
@@ -39,9 +43,9 @@ interface Card {
 }
 
 const cards = ref<Card[]>([
-    { id: 0, name: 'A', isOpened: true },
-    { id: 1, name: 'B', isOpened: true },
-    { id: 2, name: 'C', isOpened: true }
+    { id: 0, name: "A", isOpened: true },
+    { id: 1, name: "B", isOpened: true },
+    { id: 2, name: "C", isOpened: true },
 ])
 
 function select(card: Card): void {
@@ -50,7 +54,7 @@ function select(card: Card): void {
     } else {
         if (selected.value == -1) {
             selected.value = card.id
-            message.value = 'ยืนยัน / เปลี่ยนการ์ด'
+            message.value = "ยืนยัน / เปลี่ยนการ์ด"
             let rc = Math.round(Math.random())
             if (card.id != coinCard) rc = 0
             let x = (card.id + 1 + rc) % cards.value.length
@@ -60,9 +64,9 @@ function select(card: Card): void {
             if (card.id == coinCard) {
                 coins.value += 2
                 winCount++
-                message.value = 'เจอเหรียญ +1'
+                message.value = "เจอเหรียญ +1"
             } else {
-                message.value = '!!! ตูม !!!'
+                message.value = "!!! ตูม !!!"
             }
             winrate.value = Math.round((winCount / counter.value) * 10000) / 100
             for (const c of cards.value) c.isOpened = true
@@ -73,7 +77,7 @@ function select(card: Card): void {
 
 function reset(): void {
     if (coins.value == 0) {
-        message.value = 'ไม่มีเหรียญเล่นแล้ว'
+        message.value = "ไม่มีเหรียญเล่นแล้ว"
         return
     }
     for (let x of cards.value) x.isOpened = false
@@ -81,7 +85,7 @@ function reset(): void {
     selected.value = -1
     counter.value++
     coins.value--
-    message.value = 'เลือกการ์ด 1 ใบ'
+    message.value = "เลือกการ์ด 1 ใบ"
     const x = document.activeElement as HTMLElement
     x.blur()
 }

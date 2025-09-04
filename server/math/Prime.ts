@@ -6,8 +6,9 @@ export default class Prime {
     public static fileName = 'prime.txt'
     public static ZERO = new Big(0)
     public static ONE = new Big(1)
+    private static primeArray : number[] = [2, 3, 5, 7, 11, 13, 17, 19, 23]
 
-    private static primeArray: Big[] = [Big(2), Big(3), Big(5), Big(7), Big(11), Big(13), Big(17), Big(19), Big(23)]
+    // private static primeArray: Big[] = [Big(2), Big(3), Big(5), Big(7), Big(11), Big(13), Big(17), Big(19), Big(23)]
     private static n: number = Prime.primeArray.length
 
     static {
@@ -18,7 +19,7 @@ export default class Prime {
                     const p = primes as string[]
                     Prime.primeArray = new Array(p.length)
                     for (let i = 0; i < p.length; i++) {
-                        Prime.primeArray[i] = new Big(p[i])
+                        Prime.primeArray[i] = parseInt(p[i])
                     }
                     Prime.n = Prime.primeArray.length
                 } else {
@@ -32,7 +33,7 @@ export default class Prime {
         }
     }
 
-    public static getPrimes() {
+    public static getPrimes() : number[] {
         return Prime.primeArray.slice(0, Prime.n)
     }
 
@@ -76,9 +77,9 @@ export default class Prime {
             const sqrt: Big = x.sqrt()
             Prime.createPrimeArray(sqrt.toString())
             let i = 0
-            divisor = Prime.primeArray[i]
+            divisor = new Big(Prime.primeArray[i])
             while (i < Prime.n && divisor.lt(sqrt) && !x.mod(divisor).eq(0)) {
-                divisor = Prime.primeArray[++i]
+                divisor = new Big(Prime.primeArray[++i])
             }
             if (i >= Prime.n || divisor.gt(sqrt)) {
                 divisor = Prime.ONE
@@ -111,7 +112,7 @@ export default class Prime {
         let diff = 0
         Prime.diffArray[0] = 0
         for (let i = 1; i < Prime.n; i++) {
-            diff = Prime.primeArray[i].sub(Prime.primeArray[i - 1]).toNumber()
+            diff = Prime.primeArray[i] - Prime.primeArray[i - 1]
             diff = Math.floor(diff / 2)
             Prime.diffArray[i] = diff
         }
@@ -152,7 +153,7 @@ export default class Prime {
                     // console.log('update primes redis', Prime.n)
                     Prime.extendArray()
                 }
-                Prime.primeArray[Prime.n++] = lp
+                Prime.primeArray[Prime.n++] = lp.toNumber()
                 if (Prime.n % 100 === 0) {
                     console.log('primes count to', Prime.n)
                 }
@@ -221,7 +222,7 @@ export default class Prime {
             c = 1
             for (let i = 0; i < n && c <= x; i++) {
                 if (barr.isExists(i)) {
-                    c *= Prime.primeArray[i].toNumber()
+                    c *= Prime.primeArray[i]
                 }
             }
             if (c <= x) {

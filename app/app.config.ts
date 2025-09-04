@@ -1,10 +1,10 @@
 export default defineAppConfig({
     ui: {
-        colorMode: false,
+        colorMode: true,
         table: {
             slots: {
-                td: 'm-1 p-1 cursor-pointer',
-                th: 'p-2',
+                td: "m-1 p-1 cursor-pointer",
+                th: "p-2",
             },
         },
     },

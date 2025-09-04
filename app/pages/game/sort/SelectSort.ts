@@ -1,4 +1,4 @@
-import Sort from './Sort'
+import Sort from "./Sort"
 export default class SelectSort extends Sort {
     public constructor(n: number, canvasId: string) {
         super(n, canvasId)

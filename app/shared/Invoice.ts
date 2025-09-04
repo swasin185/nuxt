@@ -1,3 +1,5 @@
+import { onScopeDispose } from "vue"
+
 export class Invoice {
     static VAT = 0.07
     static IncVAT = around(1 + Invoice.VAT)
@@ -14,7 +16,7 @@ export class Invoice {
     constructor(
         invNr: number = 0,
         invDate: Date = new Date(),
-        customer: string = '',
+        customer: string = "",
         incVAT: boolean = false,
         couponAmt: number = 0,
         items: InvItem[] = []

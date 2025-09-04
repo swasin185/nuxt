@@ -56,38 +56,20 @@ export default class Maze2 {
         return this.maxWalk
     }
 
-    constructor(canvasId: string = 'canvas', size: number = 500) {
+    constructor(canvasId: string = "canvas", size: number = 500) {
         this.colors[0] = this.wayColor
         for (let i = 1; i < this.colors.length; i++)
             this.colors[i] = [Math.round(i * 2.5), 205 - i * 2, 200]
         this.cvs = document.getElementById(canvasId) as HTMLCanvasElement
-        this.ctx = this.cvs.getContext('2d') as CanvasRenderingContext2D
+        this.ctx = this.cvs.getContext("2d") as CanvasRenderingContext2D
         this.ctx.fillStyle = this.cvs.style.backgroundColor
         this.ctx.strokeStyle = this.cvs.style.color
-        this.bgColor[Maze2.RED] = parseInt(
-            this.ctx.fillStyle.substring(1, 3),
-            16
-        )
-        this.bgColor[Maze2.GREEN] = parseInt(
-            this.ctx.fillStyle.substring(3, 5),
-            16
-        )
-        this.bgColor[Maze2.BLUE] = parseInt(
-            this.ctx.fillStyle.substring(5, 7),
-            16
-        )
-        this.wayColor[Maze2.RED] = parseInt(
-            this.ctx.strokeStyle.substring(1, 3),
-            16
-        )
-        this.wayColor[Maze2.GREEN] = parseInt(
-            this.ctx.strokeStyle.substring(3, 5),
-            16
-        )
-        this.wayColor[Maze2.BLUE] = parseInt(
-            this.ctx.strokeStyle.substring(5, 7),
-            16
-        )
+        this.bgColor[Maze2.RED] = parseInt(this.ctx.fillStyle.substring(1, 3), 16)
+        this.bgColor[Maze2.GREEN] = parseInt(this.ctx.fillStyle.substring(3, 5), 16)
+        this.bgColor[Maze2.BLUE] = parseInt(this.ctx.fillStyle.substring(5, 7), 16)
+        this.wayColor[Maze2.RED] = parseInt(this.ctx.strokeStyle.substring(1, 3), 16)
+        this.wayColor[Maze2.GREEN] = parseInt(this.ctx.strokeStyle.substring(3, 5), 16)
+        this.wayColor[Maze2.BLUE] = parseInt(this.ctx.strokeStyle.substring(5, 7), 16)
         this.init(size)
     }
 
@@ -135,12 +117,7 @@ export default class Maze2 {
         }
     }
 
-    private paintArea(
-        imgArr: Uint8ClampedArray,
-        i: number,
-        j: number,
-        color: number[]
-    ) {
+    private paintArea(imgArr: Uint8ClampedArray, i: number, j: number, color: number[]) {
         let coor = i * this.dy * this._width4 + j * this._dx4
         for (let by = 0; by < this.dy; by++) {
             for (let bx = 0; bx < this.dx; bx++) {
@@ -157,8 +134,7 @@ export default class Maze2 {
         const imgArr = this.imgData?.data
         for (let i = 1; i <= this._size_2; i++)
             for (let j = 1; j <= this._size_2; j++)
-                if (this.map[i]![j] == Maze2.WAY)
-                    this.paintArea(imgArr, i, j, this.bgColor)
+                if (this.map[i]![j] == Maze2.WAY) this.paintArea(imgArr, i, j, this.bgColor)
         this.ctx.putImageData(this.imgData, 0, 0)
     }
 
@@ -166,20 +142,12 @@ export default class Maze2 {
         const imgArr = this.imgData?.data
         for (let i = 1; i <= this._size_2; i++)
             for (let j = 1; j <= this._size_2; j++)
-                if (this.map[i]![j] == Maze2.WAY)
-                    this.paintArea(imgArr, i, j, this.wayColor)
-                else if (this.map[i]![j] == Maze2.END)
-                    this.paintArea(imgArr, i, j, this.endColor)
-                else if (this.map[i]![j] == Maze2.WALL)
-                    this.paintArea(imgArr, i, j, this.bgColor)
+                if (this.map[i]![j] == Maze2.WAY) this.paintArea(imgArr, i, j, this.wayColor)
+                else if (this.map[i]![j] == Maze2.END) this.paintArea(imgArr, i, j, this.endColor)
+                else if (this.map[i]![j] == Maze2.WALL) this.paintArea(imgArr, i, j, this.bgColor)
 
         if (this.startArea != undefined)
-            this.paintArea(
-                imgArr,
-                this.startArea.i,
-                this.startArea.j,
-                this.startColor
-            )
+            this.paintArea(imgArr, this.startArea.i, this.startArea.j, this.startColor)
 
         this.ctx.putImageData(this.imgData, 0, 0)
     }
@@ -191,8 +159,7 @@ export default class Maze2 {
                 if (this.map[i]![j]! > Maze2.WAY) {
                     const x = Math.ceil((this.map[i]![j]! / this.maxWalk) * 99)
                     this.paintArea(imgArr, i, j, this.colors[x]!)
-                } else if (this.map[i]![j] == Maze2.END)
-                    this.paintArea(imgArr, i, j, this.endColor)
+                } else if (this.map[i]![j] == Maze2.END) this.paintArea(imgArr, i, j, this.endColor)
                 // else if (this.map[i][j] == Maze2.WALL)
                 // 	this.paintArea(imgArr, i, j, this.bgColor);
             }
@@ -223,21 +190,11 @@ export default class Maze2 {
         })
 
         if (this.startArea != undefined)
-            this.paintArea(
-                imgArr,
-                this.startArea.i,
-                this.startArea.j,
-                this.startColor
-            )
+            this.paintArea(imgArr, this.startArea.i, this.startArea.j, this.startColor)
 
         // if (this.finishArea != undefined && this.found)
         if (this.finishArea != undefined)
-            this.paintArea(
-                imgArr,
-                this.finishArea.i,
-                this.finishArea.j,
-                this.finishColor
-            )
+            this.paintArea(imgArr, this.finishArea.i, this.finishArea.j, this.finishColor)
 
         this.ctx.putImageData(this.imgData, 0, 0)
     }
@@ -247,10 +204,7 @@ export default class Maze2 {
     }
 
     public getFinishDistanct(area: Coordinate): number {
-        return (
-            Math.abs(this.finishArea.i - area.i) +
-            Math.abs(this.finishArea.j - area.j)
-        )
+        return Math.abs(this.finishArea.i - area.i) + Math.abs(this.finishArea.j - area.j)
     }
 
     public setMap(coor: Coordinate, value: number): void {
@@ -268,7 +222,7 @@ export default class Maze2 {
         this.reset()
         if (!this.running) {
             this.running = true
-            console.time('generate')
+            console.time("generate")
             this.teams = [
                 new Runner(this, 1, 1),
                 new Runner(this, 1, this._size_2),
@@ -313,11 +267,10 @@ export default class Maze2 {
                         Math.random() < connect
                     )
                         this.map[i]![j] = Maze2.WAY
-                    else if (this.map[i]![j] != Maze2.WALL)
-                        this.map[i]![j] = Maze2.WAY
+                    else if (this.map[i]![j] != Maze2.WALL) this.map[i]![j] = Maze2.WAY
 
             this.paintMaze()
-            console.timeEnd('generate')
+            console.timeEnd("generate")
             this.running = false
         }
     }
@@ -328,7 +281,7 @@ export default class Maze2 {
             const i = Math.floor(event.offsetY / this.dx)
             const j = Math.floor(event.offsetX / this.dy)
             if (this.map[i]![j] != Maze2.WALL) {
-                window.alert('set finish to i:' + i + ' j:' + j)
+                window.alert("set finish to i:" + i + " j:" + j)
                 this.finishArea?.set(i, j)
                 this.paintMaze()
                 this.paintPath()
@@ -365,32 +318,14 @@ export default class Maze2 {
         let w = 0
         while (i != this.startArea.i || j != this.startArea.j) {
             w = this.map[i]![j]!
-            if (
-                i > 1 &&
-                this.map[i - 1]![j]! > 0 &&
-                w - this.map[i - 1]![j]! > 0
-            )
-                i--
-            else if (
-                j > 1 &&
-                this.map[i]![j - 1]! > 0 &&
-                w - this.map[i]![j - 1]! > 0
-            )
-                j--
-            else if (
-                i < this._size_2 &&
-                this.map[i + 1]![j]! > 0 &&
-                w - this.map[i + 1]![j]! > 0
-            )
+            if (i > 1 && this.map[i - 1]![j]! > 0 && w - this.map[i - 1]![j]! > 0) i--
+            else if (j > 1 && this.map[i]![j - 1]! > 0 && w - this.map[i]![j - 1]! > 0) j--
+            else if (i < this._size_2 && this.map[i + 1]![j]! > 0 && w - this.map[i + 1]![j]! > 0)
                 i++
-            else if (
-                j < this._size_2 &&
-                this.map[i]![j + 1]! > 0 &&
-                w - this.map[i]![j + 1]! > 0
-            )
+            else if (j < this._size_2 && this.map[i]![j + 1]! > 0 && w - this.map[i]![j + 1]! > 0)
                 j++
             else {
-                console.log('path Error', i, j, w)
+                console.log("path Error", i, j, w)
                 //throw new Error("Path Error!");
                 return path
             }
@@ -420,8 +355,7 @@ export default class Maze2 {
     private addPortal(area: Coordinate): void {
         let i = 0
         while (i < this.portals.length && !this.portals[i]!.equals(area)) i++
-        if (i == this.portals.length)
-            this.portals.push(new Coordinate(area.i, area.j))
+        if (i == this.portals.length) this.portals.push(new Coordinate(area.i, area.j))
     }
 
     public removePortal(area: Coordinate): void {
@@ -433,10 +367,7 @@ export default class Maze2 {
     private addNewRunner(walk: number): void {
         let i = 0
         let portal = this.portals[i]!
-        while (
-            i < this.portals.length &&
-            walk < this.map[portal.i]![portal.j]!
-        ) {
+        while (i < this.portals.length && walk < this.map[portal.i]![portal.j]!) {
             this.teams.push(new Runner(this, portal.i, portal.j))
             portal = this.portals[++i]!
         }
@@ -449,8 +380,8 @@ export default class Maze2 {
         if (!this.running) {
             this.running = true
             this.teams = [new Runner(this, this.startArea.i, this.startArea.j)]
-            console.time('First Found')
-            console.time('Optimal Path')
+            console.time("First Found")
+            console.time("Optimal Path")
             let activeCount = 1
             while (this.running && activeCount > 0) {
                 activeCount = 0
@@ -465,15 +396,11 @@ export default class Maze2 {
                             if (runner.beyondBoundary()) {
                                 this.addPortal(runner.getLocation())
                                 runner.setDirection(Maze2.NONE)
-                            } else if (
-                                this.found &&
-                                runner.beyondShortestPath()
-                            ) {
+                            } else if (this.found && runner.beyondShortestPath()) {
                                 this.removePortal(runner.getLocation())
                                 runner.setDirection(Maze2.NONE)
                             }
-                            if (this.found)
-                                this.isUpdatePath(runner.getLocation())
+                            if (this.found) this.isUpdatePath(runner.getLocation())
                         } else this.removePortal(runner.getLocation())
                         if (runner.getDirection() == Maze2.NONE)
                             // ถ้าไม่มีเส้นทางใหม่ ให้กลับบ้าน
@@ -481,30 +408,24 @@ export default class Maze2 {
                         if (runner.getDirection() == Maze2.NONE)
                             // ถ้ากลับจนสุดแล้ว ให้เปลี่ยนไปเริ่มที่จุดพักต่อไป
                             this.addNewRunner(
-                                this.map[runner.getLocation().i]![
-                                    runner.getLocation().j
-                                ]!
+                                this.map[runner.getLocation().i]![runner.getLocation().j]!
                             )
                         runner.move()
                     }
                 })
                 if (this.found && this.getPathLength() == 0) {
-                    console.timeEnd('First Found')
+                    console.timeEnd("First Found")
                     console.log(
-                        'Runner',
+                        "Runner",
                         Runner.getMaxId(),
-                        'Avg.Move',
-                        Math.round(
-                            Runner.getTotalDistance() / Runner.getMaxId()
-                        )
+                        "Avg.Move",
+                        Math.round(Runner.getTotalDistance() / Runner.getMaxId())
                     )
                     const path = this.createPath(this.finishArea)
                     this.reset()
                     this.found = true
                     this.path = path
-                    this.teams = [
-                        new Runner(this, this.startArea.i, this.startArea.j),
-                    ]
+                    this.teams = [new Runner(this, this.startArea.i, this.startArea.j)]
                     activeCount = 1
                     this.running = true
                 } else if (activeCount < this.teams.length / 2) {
@@ -518,11 +439,11 @@ export default class Maze2 {
                     await new Promise((r) => setTimeout(r, delay))
                 }
             }
-            console.timeEnd('Optimal Path')
+            console.timeEnd("Optimal Path")
             console.log(
-                'Runner',
+                "Runner",
                 Runner.getMaxId(),
-                'Avg.Move',
+                "Avg.Move",
                 Math.round(Runner.getTotalDistance() / Runner.getMaxId())
             )
             this.paintMaze()
@@ -550,7 +471,7 @@ class Coordinate {
         return area != undefined && this.i == area.i && this.j == area.j
     }
     public toString(): string {
-        return this.i + ':' + this.j
+        return this.i + ":" + this.j
     }
 }
 
@@ -581,15 +502,7 @@ class Runner {
     }
 
     public toString(): string {
-        return (
-            this.id +
-            ' : ' +
-            this.walk +
-            ' | ' +
-            this.direction +
-            ' = ' +
-            this.boundary
-        )
+        return this.id + " : " + this.walk + " | " + this.direction + " = " + this.boundary
     }
 
     constructor(maze: Maze2, i: number, j: number) {
@@ -674,17 +587,11 @@ class Runner {
         if (this.atJunction(this.getLocation())) {
             let choice = 0
             let direct = Maze2.NONE
-            if (
-                this.locate.i > 1 &&
-                map[this.locate.i - 2]![this.locate.j] == Maze2.WALL
-            ) {
+            if (this.locate.i > 1 && map[this.locate.i - 2]![this.locate.j] == Maze2.WALL) {
                 choice++
                 direct += Maze2.NORTH
             }
-            if (
-                this.locate.j > 1 &&
-                map[this.locate.i]![this.locate.j - 2] == Maze2.WALL
-            ) {
+            if (this.locate.j > 1 && map[this.locate.i]![this.locate.j - 2] == Maze2.WALL) {
                 choice++
                 direct += Maze2.WEST
             }
@@ -707,13 +614,11 @@ class Runner {
                 choice = Math.floor(Math.random() * choice)
                 this.direction = Maze2.EAST
                 while (choice > 0) {
-                    while ((this.direction & direct) == Maze2.NONE)
-                        this.direction >>= 1
+                    while ((this.direction & direct) == Maze2.NONE) this.direction >>= 1
                     this.direction >>= 1
                     choice--
                 }
-                while ((this.direction & direct) == Maze2.NONE)
-                    this.direction >>= 1
+                while ((this.direction & direct) == Maze2.NONE) this.direction >>= 1
             } else this.direction = Maze2.NONE
         } else {
             if (
@@ -755,8 +660,7 @@ class Runner {
         const map = this.maze.getMap()
         return (
             map[i]![j] == Maze2.WAY ||
-            (this.maze.isFounded() &&
-                map[i]![j]! - map[this.locate.i]![this.locate.j]! > 1)
+            (this.maze.isFounded() && map[i]![j]! - map[this.locate.i]![this.locate.j]! > 1)
         )
     }
 
@@ -792,10 +696,7 @@ class Runner {
         this.direction = Maze2.NONE
         let direct = Maze2.NONE
         const idx = this.id % 4
-        if (
-            this.locate.i > 1 &&
-            this.isNextLocation(this.locate.i - 1, this.locate.j)
-        ) {
+        if (this.locate.i > 1 && this.isNextLocation(this.locate.i - 1, this.locate.j)) {
             if (idx == 0) this.direction = Maze2.NORTH
             direct += Maze2.NORTH
         }
@@ -831,8 +732,7 @@ class Runner {
                 else if (idx == 2) this.direction = Maze2.WEST
                 else this.direction = Maze2.SOUTH
                 while ((this.direction & direct) == Maze2.NONE)
-                    if (this.direction == Maze2.NORTH)
-                        this.direction = Maze2.EAST
+                    if (this.direction == Maze2.NORTH) this.direction = Maze2.EAST
                     else this.direction >>= 1
             }
         } else this.direction == Maze2.NONE
@@ -843,10 +743,7 @@ class Runner {
     }
 
     public beyondShortestPath(): boolean {
-        return (
-            this.walk + this.maze.getFinishDistanct(this.locate) >=
-            this.maze.getPathLength()
-        )
+        return this.walk + this.maze.getFinishDistanct(this.locate) >= this.maze.getPathLength()
     }
 
     public goBackUntilNewPath(): void {
