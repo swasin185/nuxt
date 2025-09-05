@@ -66,8 +66,13 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue"
 
-let primeNumbers = ref<number[]>([])
-let evenNumber = ref<number>(100)
+onMounted(async () => {
+    primeNumbers.value = await $fetch("/api/prime-list")
+    console.log("fetch Prime ", primeNumbers.value.length)
+})
+
+const primeNumbers = ref<number[]>([])
+const evenNumber = ref<number>(100)
 
 const maxEventNumber = computed(() => {
     return primeNumbers.value[primeNumbers.value.length - 1]! + 1
@@ -96,7 +101,4 @@ watch(evenNumber, (val) => {
     else if (val % 2 !== 0) evenNumber.value = val - 1
 })
 
-onMounted(async () => {
-    primeNumbers.value = await $fetch<number[]>("/api/prime-list")
-})
 </script>
