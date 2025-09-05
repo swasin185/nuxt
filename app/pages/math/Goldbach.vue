@@ -97,6 +97,6 @@ watch(evenNumber, (val) => {
 })
 
 onMounted(async () => {
-    primeNumbers.value = (await $fetch("/api/prime-list")) as number[]
+    primeNumbers.value = await $fetch<number[]>("/api/prime-list")
 })
 </script>

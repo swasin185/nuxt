@@ -31,17 +31,16 @@ import type { TableColumn, TableRow } from "@nuxt/ui"
 import { ref, onMounted } from "vue"
 import { Invoice, InvItem, calculateInv } from "~/shared/Invoice"
 
-const invoices = ref([])
+const invoices = ref<Invoice[]>([])
 const invoice = ref<Invoice>(new Invoice())
 const invitem = ref<InvItem>()
 
 onMounted(async () => {
-    invoices.value = await $fetch("/api/invoice")
-    for (let inv of invoices.value) calculateInv(inv)
-    invoice.value = invoices.value[0]!
+    invoices.value = await $fetch<Invoice[]>("/api/invoice")
+    for (let inv of invoices.value!) calculateInv(inv)
+    invoice.value = invoices.value![0]! 
 })
-// const UCheckbox = resolveComponent('UCheckbox')
-// const UBadge = resolveComponent('UBadge')
+
 const table = useTemplateRef("inv")
 const tableItems = useTemplateRef("invitem")
 const columns: TableColumn<Invoice>[] = [
