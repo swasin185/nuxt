@@ -17,10 +17,10 @@ export default eventHandler(async (req) => {
         })
     }
 
-    if (Prime.getLastPrime().toNumber() < n) {
+    if (Prime.getLastPrime() < n) {
         throw createError({
             statusCode: 400,
-            statusMessage: 'Number input should less than ' + Prime.getLastPrime().toNumber(),
+            statusMessage: 'Number input should less than ' + Prime.getLastPrime(),
         })
     }
 
@@ -36,8 +36,8 @@ export default eventHandler(async (req) => {
         des = '┘'
     }
     for (let k = 3; k < n; k += 2) {
-        while (Prime.getPrime(p).toNumber() < k) p++
-        if (Prime.getPrime(p).toNumber() == k) {
+        while (Prime.getPrime(p) < k) p++
+        if (Prime.getPrime(p) == k) {
             if (half > k) asc += '┬'
             if (half == k) {
                 asc += '┐'

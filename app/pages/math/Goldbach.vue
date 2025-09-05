@@ -10,6 +10,7 @@
                 :max="maxEventNumber"
                 step="2"
                 class="w-24 text-center"
+                :title="maxEventNumber"
             />
         </div>
 
