@@ -1,5 +1,5 @@
 <template>
-    <UCard header="Login ชื่อผู้ใช้">
+    <UCard header="Login ชื่อผู้ใช้" class="flex justify-left items-top gap-2 mb-2">
         <UInput v-model="username" placeholder="ชื่อ user" :disabled="loggedIn" />
         <UInput
             v-model="password"
@@ -13,7 +13,7 @@
             <UButton v-if="loggedIn" @click="logout">Logout</UButton>
             <UButton v-else @click="login">Login</UButton>
             &MediumSpace;
-            <UInput v-model="fullName" disabled />
+            {{ fullName }}
         </template>
     </UCard>
 </template>
@@ -27,8 +27,8 @@ const username: Ref<string> = ref(user?.value?.id || "")
 const password: Ref<string> = ref("")
 const fullName: Ref<string> = ref(user?.value?.name || "")
 
-async function login() {
-    useFetch("/api/auth/local", {
+function login() {
+    $fetch("/api/auth/local", {
         query: {
             id: username.value,
             pwd: password.value,

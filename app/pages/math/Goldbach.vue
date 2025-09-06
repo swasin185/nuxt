@@ -2,14 +2,13 @@
     <UCard>
         <div class="flex justify-left items-center gap-2 mb-4">
             <label for="rulerLength" class="font-medium">Even Number:</label>
-            <UInput
+            <UInputNumber
                 id="rulerLength"
                 v-model.number="evenNumber"
-                type="number"
-                min="4"
+                :min=4
                 :max="maxEventNumber"
-                step="2"
-                class="w-24 text-center"
+                :step=2
+                class="w-32 text-center"
                 :title="maxEventNumber"
             />
         </div>
@@ -68,8 +67,14 @@
 import { ref, computed, onMounted } from "vue"
 
 onMounted(async () => {
-    primeNumbers.value = await $fetch("/api/prime-list")
-    console.log("fetch Prime ", primeNumbers.value.length)
+    $fetch<number[]>("/api/prime-list")
+        .then((result) => {
+            primeNumbers.value = result
+            console.log("fetch Prime ", primeNumbers.value.length)
+        })
+        .catch((error) => {
+            console.error("Failed to fetch Prime:", error)
+        })
 })
 
 const primeNumbers = ref<number[]>([])
@@ -101,5 +106,4 @@ watch(evenNumber, (val) => {
     else if (val < 4) evenNumber.value = 4
     else if (val % 2 !== 0) evenNumber.value = val - 1
 })
-
 </script>

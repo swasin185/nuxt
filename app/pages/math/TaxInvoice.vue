@@ -36,10 +36,16 @@ const invoice = ref<Invoice>(new Invoice())
 const invitem = ref<InvItem>()
 
 onMounted(async () => {
-    invoices.value = await $fetch<Invoice[]>("/api/invoice")
-    for (let inv of invoices.value!) calculateInv(inv)
-    invoice.value = invoices.value![0]! 
-    console.log("fetch Invoices ", invoices.value.length)
+    $fetch<Invoice[]>("/api/invoice")
+        .then((result) => {
+            invoices.value = result
+            for (let inv of invoices.value!) calculateInv(inv)
+            invoice.value = invoices.value![0]!
+            console.log("fetch Invoices ", invoices.value.length)
+        })
+        .catch((error) => {
+            console.error("Failed to fetch invoices:", error)
+        })
 })
 
 const table = useTemplateRef("inv")

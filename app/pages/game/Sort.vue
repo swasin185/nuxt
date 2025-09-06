@@ -1,10 +1,9 @@
 <template>
     <div>
-        <h1>SORTING ALGORITHM</h1>
+        <canvas id="Quick" width="650" height="220" @click="quickSort.runSort()" />
         <canvas id="Bubble" width="650" height="220" @click="bubbleSort.runSort()" />
         <canvas id="Select" width="650" height="220" @click="selectSort.runSort()" />
         <canvas id="Insert" width="650" height="220" @click="insertSort.runSort()" />
-        <canvas id="Quick" width="650" height="220" @click="quickSort.runSort()" />
     </div>
 </template>
 
@@ -37,6 +36,7 @@ onMounted(() => {
 canvas {
     border: 1px solid #777;
     background-color: orange;
+    margin: 10px;
 }
 
 button {
