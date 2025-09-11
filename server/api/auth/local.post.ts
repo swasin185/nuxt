@@ -1,7 +1,8 @@
 export default eventHandler(async (event) => {
-    const query = getQuery(event)
-    const inputId = query.id?.toString().toLowerCase()
-    const inputPwd = query.pwd?.toString()
+//    const query = getQuery(event)
+    const body = await readBody(event)
+    const inputId = body.id?.toString().toLowerCase()
+    const inputPwd = body.pwd?.toString()
     const d = new Date()
     console.log("...Authen Login...", d.toString())
     if (!inputId || !inputPwd) {
@@ -24,17 +25,15 @@ export default eventHandler(async (event) => {
             await setUserSession(event, {
                 user: authUser,
             })
-            setResponseStatus(event, 200)
+            // setResponseStatus(event, 200)
             return {
-                success: true,
                 message: "Login successful!",
                 user: { id: authUser.id, name: authUser.name },
             }
         } else {
             await clearUserSession(event)
-            setResponseStatus(event, 401)
+            setResponseStatus(event, 200)
             return {
-                success: false,
                 message: "Invalid User ID or Password.",
             }
         }
@@ -43,7 +42,6 @@ export default eventHandler(async (event) => {
         await clearUserSession(event)
         setResponseStatus(event, 500)
         return {
-            success: false,
             message: "An internal server error occurred during authentication.",
             error: (error as Error).message,
         }

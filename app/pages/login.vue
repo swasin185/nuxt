@@ -1,7 +1,9 @@
 <template>
-    <UCard header="Login ชื่อผู้ใช้" class="flex justify-left items-top gap-2 mb-2">
-        <UInput v-model="username" placeholder="ชื่อ user" :disabled="loggedIn" />
+    <UCard header="Login ชื่อผู้ใช้" class="gap-4 mb-2">
+        <UInput ref="txtUser" class="pr-4" v-model="username" placeholder="ชื่อ user" :disabled="loggedIn" />
         <UInput
+            v-if="!loggedIn"
+            ref="txtPassword"
             v-model="password"
             placeholder="รหัสผ่าน"
             :disabled="loggedIn"
@@ -9,11 +11,10 @@
             @keydown.enter="login"
             type="password"
         />
+        <UBadge v-else>{{ fullName }}</UBadge>
         <template #footer>
             <UButton v-if="loggedIn" @click="logout">Logout</UButton>
             <UButton v-else @click="login">Login</UButton>
-            &MediumSpace;
-            {{ fullName }}
         </template>
     </UCard>
 </template>
@@ -27,20 +28,34 @@ const username: Ref<string> = ref(user?.value?.id || "")
 const password: Ref<string> = ref("")
 const fullName: Ref<string> = ref(user?.value?.name || "")
 
+const txtUser = useTemplateRef("txtUser")
+const txtPassword = useTemplateRef("txtPassword")
+
 function login() {
+    if (!username.value) {
+        txtUser.value!.inputRef?.focus()
+        return
+    }
+    if (!password.value) {
+        txtPassword.value!.inputRef?.focus()
+        return
+    }
+
     $fetch("/api/auth/local", {
-        query: {
+        method: "POST", 
+        body: {
             id: username.value,
             pwd: password.value,
         },
     })
         .then(async () => {
             await refreshSession()
-            if (loggedIn.value) location.reload()
-            // await navigateTo('/')
-            else alert("ชื่อผู้ใช้/รหัสผ่าน ผิดพลาด")
+            if (loggedIn.value)  // location.reload()
+                await navigateTo('/')
+            else
+                alert('ชื่อผู้ใช้/รหัสผ่าน ผิดพลาด')
         })
-        .catch(() => alert("เซิฟเวอร์มีปัญหา"))
+        .catch((error) => alert(error.message))
 }
 
 async function logout() {

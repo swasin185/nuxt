@@ -1,6 +1,6 @@
 <template>
     <UCard>
-        <USwitch v-model="play" @change="startAnimation" label="START" />
+        <USwitch class="pb-4" v-model="play" @change="startAnimation" label="START" />
         <canvas id="circleCanvas" width="600" height="700"></canvas>
     </UCard>
 </template>
