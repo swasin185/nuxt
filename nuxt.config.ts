@@ -6,6 +6,9 @@ export default defineNuxtConfig({
     modules: ["@nuxt/ui", "nuxt-auth-utils"],
     css: ["@/assets/styles.css"],
     runtimeConfig: {
+        public: {
+            buildTime: new Date().getTime()
+        },
         session: {
             maxAge: 60 * 5, // 5 minutes
             password: process.env.NUXT_SESSION_PASSWORD || "1234567_1234567_1234567_12345678",
