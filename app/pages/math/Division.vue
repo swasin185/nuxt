@@ -1,23 +1,20 @@
 <template>
     <UCard class="flex">
         <UInputNumber
-            id="baseIn"
-            v-model.number="baseIn"
-            class="w-24 font-bold"
+            v-model.number="dividend"
+            class="w-24 font-bold mr-2 mb-4"
             orientation="vertical"
-            :min="2"
+            :min="1"
         />
         <UInputNumber
-            id="baseOut"
-            v-model.number="baseOut"
-            class="w-24 font-bold"
+            v-model.number="divisor"
+            class="w-24 font-bold mr-2"
             orientation="vertical"
             :min="2"
         />
         <UButton @click="division">Division</UButton>
-        <USeparator />
-        <br />
-        <hr />
+        <!-- <USeparator /> -->
+
         <div v-if="outputRepeat" class="w-250 flex justify-between items-center font-mono text-xl">
             <span class="text-left text-sm">ทศนิยมซ้ำ</span>
             <span class="text-right">{{ outputRepeat }}</span>
@@ -38,19 +35,23 @@
 useHead({
     title: "Division",
 })
-import { ref } from "vue"
-const baseIn = ref<number>(10)
-const baseOut = ref<number>(2)
+import { ref, onMounted } from "vue"
+const dividend = ref<number>(1)
+const divisor = ref<number>(2)
 const output = ref<string>("0")
 const gcd = ref<number>(0)
 const repeat = ref<number>(0)
 const outputRepeat = ref<string>("")
 
+onMounted( () => {
+    division()
+})
+
 async function division() {
     const result = (await $fetch("/api/division", {
         query: {
-            x: baseIn.value,
-            y: baseOut.value,
+            x: dividend.value,
+            y: divisor.value,
         },
     })) as {
         decimal: string
@@ -66,8 +67,7 @@ async function division() {
     gcd.value = result.gcd
     repeat.value = result.repeatPoint
     const ln = result.decimal.length - result.repeatPoint
-    outputRepeat.value = ""
-    if (ln > 0) for (let i = 0; i <= ln; i++) outputRepeat.value += "."
+    outputRepeat.value = repeat.value > 0 ? ".".repeat(ln + 1) : ""
 }
 </script>
 <style scoped></style>

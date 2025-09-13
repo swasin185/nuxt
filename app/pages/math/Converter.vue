@@ -40,7 +40,7 @@
 useHead({
     title: "Base Converter",
 })
-import { ref, onMounted } from "vue"
+import { ref } from "vue"
 const numInput = ref<string>("0")
 const baseIn = ref<number>(10)
 const baseOut = ref<number>(2)

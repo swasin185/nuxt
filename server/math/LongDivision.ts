@@ -14,16 +14,16 @@ export default class LongDivision {
         this.quotient = Math.floor(dividend / divisor)
         let remainder = dividend % divisor
         let output = []
-        this.remainderList = []
+        this.remainderList = remainder == 0 ? [] : [remainder]
         this.repeatPoint = 0
-        let limit = Math.floor(Math.log(divisor) * 4)
-        for (let point = 0; remainder != 0 && this.repeatPoint == 0; point++) {
+        for (let point = 1; remainder != 0 && this.repeatPoint == 0; point++) {
+            // console.log(remainder, this.repeatPoint, this.remainderList)
             this.remainderList.push(remainder)
             remainder *= 10
             output.push(Math.floor(remainder / divisor))
             remainder %= divisor
             if (remainder != 0)
-                for (let i = 0; i < point && i < limit && this.repeatPoint == 0; i++)
+                for (let i = 0; i < point && this.repeatPoint == 0; i++)
                     if (this.remainderList[i] == remainder) this.repeatPoint = i + 1
         }
         this.decimal = output.join("")
