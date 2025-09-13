@@ -1,9 +1,8 @@
 <template>
     <UCard>
-        <template #title>Hello World</template>
         <h2 v-if="counter > 0">counter = {{ counter }}</h2>
         <template #footer>
-            <UProgress :v-model="ref(null)" style="height: 6px"></UProgress>
+            <UProgress v-if="counter==0" :v-model="ref(null)" style="height: 6px"></UProgress>
         </template>
     </UCard>
 </template>

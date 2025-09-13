@@ -13,4 +13,5 @@ pnpm approve-builds
 corepack use pnpm@latest
 npx nuxi@latest module add auth-utils
 pnpm add -D big.js @types/big.js
+pnpm add tailwindcss
 ```

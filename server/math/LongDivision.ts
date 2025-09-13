@@ -4,11 +4,11 @@ export default class LongDivision {
     private decimal: String
     private quotient: number
     private repeatPoint: number
-
     private remainderList: number[]
+    private gcd: number
 
     constructor(dividend: number, divisor: number) {
-        console.time('LongDivision')
+        console.time("LongDivision")
         this.dividend = dividend
         this.divisor = divisor
         this.quotient = Math.floor(dividend / divisor)
@@ -22,13 +22,13 @@ export default class LongDivision {
             remainder *= 10
             output.push(Math.floor(remainder / divisor))
             remainder %= divisor
-            if (remainder != 0) {
-                for (let i = 0; i < point && i < limit && this.repeatPoint == 0; i++) if (this.remainderList[i] == remainder) this.repeatPoint = i + 1
-            }
+            if (remainder != 0)
+                for (let i = 0; i < point && i < limit && this.repeatPoint == 0; i++)
+                    if (this.remainderList[i] == remainder) this.repeatPoint = i + 1
         }
-        this.decimal = output.join('')
-        console.info(dividend, divisor)
-        console.timeEnd('LongDivision')
+        this.decimal = output.join("")
+        this.gcd = this.getGcd()
+        console.timeEnd("LongDivision")
     }
 
     public getRemainderList(): number[] {
@@ -49,7 +49,24 @@ export default class LongDivision {
 
     public toString() {
         if (this.decimal.length == 0) return this.quotient
-        else return this.quotient + '.' + this.decimal
+        else return this.quotient + "." + this.decimal
+    }
+
+    private getGcd(): number {
+        let a = this.dividend
+        let b = this.divisor
+        let gcd = b
+        if (b > a) {
+            b = a
+            a = gcd
+            gcd = b
+        }
+        while (b != 0) {
+            gcd = a % b
+            a = b
+            b = gcd
+        }
+        return a
     }
 }
 

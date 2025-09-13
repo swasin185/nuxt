@@ -24,8 +24,8 @@ useHead({
     title: "Login",
 })
 const { loggedIn, user, session, clear, fetch: refreshSession } = useUserSession()
-const username: Ref<string> = ref(user?.value?.id || "")
-const password: Ref<string> = ref("")
+const username: Ref<string> = ref(user?.value?.id || "test")
+const password: Ref<string> = ref("abc123")
 const fullName: Ref<string> = ref(user?.value?.name || "")
 
 const txtUser = useTemplateRef("txtUser")

@@ -7,5 +7,10 @@ export default defineAppConfig({
                 th: "p-2",
             },
         },
+        inputNumber: {
+            slots: {
+                base: "text-right",
+            },
+        },
     },
 })

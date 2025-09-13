@@ -8,7 +8,7 @@
                 :min=4
                 :max="maxEventNumber"
                 :step=2
-                class="w-32 text-center"
+                class="w-32"
                 :title="maxEventNumber"
             />
         </div>

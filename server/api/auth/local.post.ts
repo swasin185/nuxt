@@ -6,12 +6,10 @@ export default eventHandler(async (event) => {
     const d = new Date()
     console.log("...Authen Login...", d.toString())
     if (!inputId || !inputPwd) {
-        setResponseStatus(event, 400)
-        return {
-            success: false,
-            message: "User ID and Password are required.",
-            details: 'Please provide both "id" and "pwd" as query parameters.',
-        }
+        throw createError({
+            statusCode: 400,
+            statusMessage: "User ID and Password are required."
+        })
     }
     try {
         const authUser = {
@@ -38,12 +36,11 @@ export default eventHandler(async (event) => {
             }
         }
     } catch (error) {
-        console.error("Authentication database error:", error)
+        console.error("Authentication Error:", error)
         await clearUserSession(event)
-        setResponseStatus(event, 500)
-        return {
-            message: "An internal server error occurred during authentication.",
-            error: (error as Error).message,
-        }
+        throw createError({
+            statusCode: 500,
+            statusMessage: "Authentication Error : " + error
+        })
     }
 })
