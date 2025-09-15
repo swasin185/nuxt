@@ -1,30 +1,19 @@
 <template>
-    <UCard class="flex">
-        <UInputNumber
-            v-model.number="dividend"
-            class="w-24 font-bold mr-2 mb-4"
-            orientation="vertical"
-            :min="1"
-        />
-        <UInputNumber
-            v-model.number="divisor"
-            class="w-24 font-bold mr-2"
-            orientation="vertical"
-            :min="2"
-        />
-        <UButton @click="division">Division</UButton>
-        <!-- <USeparator /> -->
-
-        <div v-if="outputRepeat" class="w-250 flex justify-between items-center font-mono text-xl">
+    <UCard class="flex font-mono font-bold text-xl">
+        <UInputNumber v-model.number="dividend" class="w-24 mr-2" orientation="vertical" :min="1" />
+        /
+        <UInputNumber v-model.number="divisor" class="w-24 mr-2" orientation="vertical" :min="2" />
+        <UButton class="ml-4 mb-2 justify-center" @click="division" color="secondary">Division</UButton>
+        <div v-if="outputRepeat" class="w-full flex justify-between">
             <span class="text-left text-sm">ทศนิยมซ้ำ</span>
             <span class="text-right">{{ outputRepeat }}</span>
         </div>
-        <div class="w-250 flex justify-between items-center font-mono text-xl">
-            <span class="text-left">ผลหาร</span>
-            <span class="text-right">{{ output }}</span>
+        <div class="w-full flex justify-between">
+            <span class="text-left mr-4">ผลหาร</span>
+            <span class="text-right primary">{{ output }}</span>
         </div>
-        <div class="w-250 flex justify-between items-center font-mono text-xl">
-            <span class="text-left">ตัวหารร่วมมาก</span>
+        <div class="w-full flex justify-between">
+            <span class="text-left">หารร่วมมาก</span>
             <span class="text-right">{{ gcd }}</span>
         </div>
         <template #footer> </template>
@@ -43,7 +32,7 @@ const gcd = ref<number>(0)
 const repeat = ref<number>(0)
 const outputRepeat = ref<string>("")
 
-onMounted( () => {
+onMounted(() => {
     division()
 })
 

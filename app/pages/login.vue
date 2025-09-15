@@ -11,7 +11,7 @@
             @keydown.enter="login"
             type="password"
         />
-        <UBadge v-else>{{ fullName }}</UBadge>
+        <UBadge v-else color="secondary">{{ fullName }}</UBadge>
         <template #footer>
             <UButton v-if="loggedIn" @click="logout">Logout</UButton>
             <UButton v-else @click="login">Login</UButton>
