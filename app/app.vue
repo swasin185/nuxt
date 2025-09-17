@@ -16,93 +16,86 @@ import type { NavigationMenuItem } from "@nuxt/ui"
 const items = ref<NavigationMenuItem[][]>([
     [
         {
-            label: "Home",
-            icon: "i-lucide-home",
-            children: [
-                { label: "Login/out", icon: "i-lucide-home", to: "/login" },
-                { label: "Reload", icon: "i-lucide-home", to: "/" },
-                { label: "Exit", icon: "i-lucide-home", to: "/exit" },
-            ],
-        },
-        {
             label: "Setting",
-            icon: "i-lucide-home",
+            icon: "i-lucide-settings", // A classic gear icon for settings.
             children: [
+                { label: "Login/out", icon: "i-lucide-log-in",  tooltip: { text:"ป้อนชื่อผู้ใช้และรหัสผ่าน" }, to: "/login" },
+                { label: "Reload", icon: "i-lucide-refresh-cw", to: "/" },
                 {
                     label: "สถานะเซิฟเวอร์",
-                    icon: "i-lucide-home",
+                    icon: "i-lucide-server",
                     to: "/setting/ServerStatus",
                 },
-                { label: "ผู้ใช้", icon: "i-lucide-home" },
-                { label: "สิทธิการใช้งาน", icon: "i-lucide-home" },
+                { label: "ผู้ใช้", icon: "i-lucide-users" },
+                { label: "สิทธิการใช้งาน", icon: "i-lucide-shield-check" }, 
             ],
         },
         {
             label: "Game",
-            icon: "i-lucide-home",
+            icon: "i-lucide-gamepad-2", 
             children: [
                 {
                     label: "Mandelbrot",
-                    icon: "i-lucide-home",
+                    icon: "i-lucide-infinity", 
                     to: "/game/Mandelbrot",
                 },
-                { label: "Maze", icon: "i-lucide-home", to: "/game/Maze" },
+                { label: "Maze", icon: "i-lucide-brick-wall", to: "/game/Maze" }, 
                 {
                     label: "Montyhall",
-                    icon: "i-lucide-home",
+                    icon: "i-lucide-door-open",
                     to: "/game/Monty",
                 },
                 {
                     label: "Pascal Triangle",
-                    icon: "i-lucide-home",
+                    icon: "i-lucide-boxes",
                     to: "/game/Pascal",
                 },
-                { label: "Sorting", icon: "i-lucide-home", to: "/game/Sort" },
+                { label: "Sorting", icon: "i-lucide-arrow-up-narrow-wide", to: "/game/Sort" }, 
             ],
         },
         {
             label: "Math",
-            icon: "i-lucide-home",
+            icon: "i-lucide-calculator", 
             children: [
                 {
                     label: "Invoice",
-                    icon: "i-lucide-home",
+                    icon: "i-lucide-file-text",
                     to: "/math/TaxInvoice",
                 },
                 {
                     label: "Trigonometry",
-                    icon: "i-lucide-home",
+                    icon: "i-lucide-axis-3d", 
                     to: "/math/Trigonometry",
                 },
                 {
                     label: "Goldbach 's conjecture",
-                    icon: "i-lucide-home",
+                    icon: "i-lucide-ruler", 
                     to: "/math/Goldbach",
                 },
                 {
                     label: "Base Converter",
-                    icon: "i-lucide-home",
+                    icon: "i-lucide-repeat",
                     to: "/math/Converter",
                 },
                 {
                     label: "Division",
-                    icon: "i-lucide-home",
+                    icon: "i-lucide-divide",
                     to: "/math/Division",
                 },
             ],
         },
         {
             label: "Tutorial",
-            icon: "i-lucide-home",
+            icon: "i-lucide-book-open", 
             children: [
                 {
                     label: "Installation",
-                    icon: "i-lucide-home",
+                    icon: "i-lucide-download",
                     to: "/tutorial/install",
                 },
                 {
                     label: "Content",
-                    icon: "i-lucide-home",
+                    icon: "i-lucide-list", 
                     to: "/tutorial/content",
                 },
             ],

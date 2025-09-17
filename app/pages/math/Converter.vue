@@ -3,7 +3,7 @@
         <UInput
             id="numInput"
             v-model="numInput"
-            class="w-150 font-bold"
+            class="w-100 font-bold"
             :ui="{ base: 'text-right' }"
             title="จำนวน"
         />
@@ -19,7 +19,7 @@
         <UInput
             id="numOutput"
             v-model="numOutput"
-            class="w-150 font-bold"
+            class="w-100 font-bold"
             :ui="{ base: 'text-right' }"
             title="จำนวน"
         />
